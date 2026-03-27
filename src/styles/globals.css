@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+:root {
+  --bg-void: #080b0f;
+  --bg-base: #0d1117;
+  --bg-panel: #111820;
+  --bg-card: #161e28;
+  --bg-hover: #1c2633;
+  --border: #1e2d3d;
+  --border-bright: #2a3f57;
+  --amber: #f59e0b;
+  --amber-dim: #b87209;
+  --amber-glow: rgba(245,158,11,0.12);
+  --cyan: #22d3ee;
+  --cyan-dim: #0891b2;
+  --cyan-glow: rgba(34,211,238,0.10);
+  --red: #ef4444;
+  --red-glow: rgba(239,68,68,0.15);
+  --green: #10b981;
+  --green-glow: rgba(16,185,129,0.12);
+  --yellow: #eab308;
+  --text-primary: #e2e8f0;
+  --text-secondary: #64748b;
+  --text-dim: #334155;
+  --risk-low: #10b981;
+  --risk-med: #f59e0b;
+  --risk-high: #ef4444;
+}
+
+html.light {
+  --bg-void: #f0f4f8;
+  --bg-base: #ffffff;
+  --bg-panel: #f8fafc;
+  --bg-card: #eef2f7;
+  --bg-hover: #e4eaf2;
+  --border: #cbd5e1;
+  --border-bright: #94a3b8;
+  --amber: #d97706;
+  --amber-dim: #b45309;
+  --amber-glow: rgba(217,119,6,0.10);
+  --cyan: #0284c7;
+  --cyan-dim: #0369a1;
+  --cyan-glow: rgba(2,132,199,0.10);
+  --red: #dc2626;
+  --red-glow: rgba(220,38,38,0.10);
+  --green: #059669;
+  --green-glow: rgba(5,150,105,0.10);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-dim: #94a3b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+*::-webkit-scrollbar { width: 3px; height: 3px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: var(--border); }
+
+body {
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Camera cell hover effects */
+.cam-cell-wrap:hover .cam-remove-hover {
+  opacity: 1 !important;
+}
+
+.cam-cell-wrap:hover .cam-overlay-hover {
+  opacity: 1 !important;
+}
+
+/* Light mode camera overrides */
+html.light .cam-feed-bg {
+  filter: brightness(8);
+}
+
+/* Speed slider thumb styling */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--amber);
+  cursor: pointer;
+  box-shadow: 0 0 6px var(--amber);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--amber);
+  cursor: pointer;
+  box-shadow: 0 0 6px var(--amber);
+  border: none;
+}
+
+/* Theme toggle hover */
+.theme-toggle-btn:hover {
+  border-color: var(--amber) !important;
+  color: var(--amber) !important;
+  background: var(--amber-glow) !important;
+}
+
+/* E-Stop hover */
+.estop-btn:hover {
+  transform: scale(1.02);
+}
+.estop-btn:active {
+  transform: scale(0.97);
+}
