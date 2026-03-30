@@ -13,9 +13,9 @@ export function RobotCard({ robot }: RobotCardProps) {
   const isSelected = selectedRobotId === robot.id;
 
   const riskClass = robot.risk > 0.7 ? 'high' : robot.risk > 0.4 ? 'med' : 'low';
-  const riskColor = riskClass === 'high' ? 'var(--red)' : riskClass === 'med' ? 'var(--amber)' : 'var(--green)';
+  const riskColor = riskClass === 'high' ? 'var(--red)' : riskClass === 'med' ? 'var(--yellow)' : 'var(--green)';
   const borderLeftColor =
-    robot.status === 'active' ? 'var(--amber)' :
+    robot.status === 'active' ? 'var(--brand)' :
     robot.status === 'stopped' ? 'var(--red)' :
     'var(--text-dim)';
 
@@ -31,15 +31,15 @@ export function RobotCard({ robot }: RobotCardProps) {
     <div
       onClick={handleClick}
       style={{
-        border: `1px solid ${isSelected ? 'var(--amber-dim)' : robot.status === 'stopped' ? '#2d1515' : 'var(--border)'}`,
-        borderRadius: '3px',
-        marginBottom: '6px',
-        padding: '9px 10px',
+        border: `1px solid ${isSelected ? 'var(--brand-border)' : 'var(--border)'}`,
+        borderRadius: '12px',
+        marginBottom: '8px',
+        padding: '11px 12px',
         cursor: 'pointer',
         transition: 'all 0.15s',
         position: 'relative',
         overflow: 'hidden',
-        background: isSelected ? 'var(--bg-card)' : 'transparent',
+        background: isSelected ? 'var(--brand-soft)' : 'var(--bg-base)',
       }}
     >
       {/* Left border indicator */}
@@ -49,15 +49,15 @@ export function RobotCard({ robot }: RobotCardProps) {
           left: 0,
           top: 0,
           bottom: 0,
-          width: '2px',
+          width: '3px',
           background: borderLeftColor,
-          boxShadow: isSelected ? `0 0 8px ${borderLeftColor}` : 'none',
+          boxShadow: isSelected ? `0 0 6px ${borderLeftColor}` : 'none',
         }}
       />
 
       {/* Top row */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-        <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '0.04em' }}>
+        <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '0.02em' }}>
           {robot.id}
         </div>
         <span style={pillStyle}>{pillLabel}</span>
@@ -73,16 +73,16 @@ export function RobotCard({ robot }: RobotCardProps) {
 
       {/* Risk bar */}
       <div style={{ marginTop: '7px' }}>
-        <div style={{ fontSize: '9px', color: 'var(--text-secondary)', marginBottom: '3px', display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: '10px', color: 'var(--text-secondary)', marginBottom: '4px', display: 'flex', justifyContent: 'space-between' }}>
           <span>Risk</span>
           <span>{robot.risk.toFixed(2)}</span>
         </div>
-        <div style={{ height: '3px', background: 'var(--bg-void)', borderRadius: '2px', overflow: 'hidden' }}>
+        <div style={{ height: '5px', background: 'var(--bg-void)', borderRadius: '999px', overflow: 'hidden' }}>
           <div
             style={{
               height: '100%',
               width: `${robot.risk * 100}%`,
-              borderRadius: '2px',
+              borderRadius: '999px',
               background: riskColor,
               boxShadow: riskClass === 'high' ? '0 0 6px var(--red)' : 'none',
               transition: 'width 0.4s ease',
@@ -96,7 +96,7 @@ export function RobotCard({ robot }: RobotCardProps) {
 
 function MetaItem({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ fontSize: '9px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '3px' }}>
+    <div style={{ fontSize: '10px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
       {label}: <span style={{ color: 'var(--text-primary)' }}>{value}</span>
     </div>
   );
@@ -104,16 +104,16 @@ function MetaItem({ label, value }: { label: string; value: string }) {
 
 function getPillStyle(robot: Robot): CSSProperties {
   const base: CSSProperties = {
-    fontSize: '9px',
-    padding: '1px 6px',
-    borderRadius: '1px',
+    fontSize: '10px',
+    padding: '2px 8px',
+    borderRadius: '999px',
     textTransform: 'uppercase',
-    letterSpacing: '0.06em',
+    letterSpacing: '0.04em',
     fontWeight: 600,
   };
 
   if (robot.status === 'active' && robot.assignedOperatorId) {
-    return { ...base, background: 'var(--amber-glow)', color: 'var(--amber)', border: '1px solid var(--amber-dim)' };
+    return { ...base, background: 'var(--brand-soft)', color: 'var(--brand)', border: '1px solid var(--brand-border)' };
   }
   if (robot.status === 'active') {
     return { ...base, background: 'var(--green-glow)', color: 'var(--green)', border: '1px solid var(--green)' };

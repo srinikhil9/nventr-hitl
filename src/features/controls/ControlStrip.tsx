@@ -17,6 +17,7 @@ export function ControlStrip() {
         alignItems: 'center',
         gap: '12px',
         flexShrink: 0,
+        minHeight: '84px',
       }}
     >
       <Joystick />
@@ -35,10 +36,10 @@ function GeofenceIndicator() {
         display: 'flex',
         alignItems: 'center',
         gap: '6px',
-        padding: '6px 10px',
+        padding: '8px 10px',
         border: '1px solid var(--border)',
         background: 'var(--bg-card)',
-        borderRadius: '2px',
+        borderRadius: '10px',
       }}
       title="Active geofence zone"
     >
@@ -52,8 +53,8 @@ function GeofenceIndicator() {
         }}
       />
       <div>
-        <div style={{ fontSize: '10px', color: 'var(--text-primary)' }}>ZONE-1</div>
-        <div style={{ fontSize: '9px', color: 'var(--text-secondary)' }}>Geofence: ACTIVE</div>
+        <div style={{ fontSize: '11px', color: 'var(--text-primary)', fontWeight: 600 }}>ZONE-1</div>
+        <div style={{ fontSize: '10px', color: 'var(--text-secondary)' }}>Geofence: ACTIVE</div>
       </div>
     </div>
   );

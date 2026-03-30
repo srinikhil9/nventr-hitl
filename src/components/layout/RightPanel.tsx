@@ -7,10 +7,10 @@ import { FidelityTab } from '@/features/fidelity/FidelityTab';
 import { TicketTab } from '@/features/tickets/TicketTab';
 
 const TABS: { id: RightPanelTab; label: string }[] = [
-  { id: 'telemetry', label: 'Telem' },
+  { id: 'telemetry', label: 'Telemetry' },
   { id: 'risk', label: 'Risk' },
   { id: 'audit', label: 'Audit' },
-  { id: 'fidelity', label: 'Fidel' },
+  { id: 'fidelity', label: 'Fidelity' },
   { id: 'ticket', label: 'Ticket' },
 ];
 
@@ -29,27 +29,22 @@ export function RightPanel() {
       }}
     >
       {/* Tab bar */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', flexShrink: 0, padding: '6px 6px 0' }}>
         {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             style={{
               flex: 1,
-              padding: '9px 6px',
-              fontSize: '9px',
+              padding: '9px 8px',
+              fontSize: '11px',
               textAlign: 'center',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: activeTab === tab.id ? 'var(--amber)' : 'var(--text-secondary)',
+              color: activeTab === tab.id ? 'var(--brand)' : 'var(--text-secondary)',
               cursor: 'pointer',
-              borderBottom: `2px solid ${activeTab === tab.id ? 'var(--amber)' : 'transparent'}`,
-              background: activeTab === tab.id ? 'var(--amber-glow)' : 'transparent',
-              border: 'none',
-              borderBottomWidth: '2px',
-              borderBottomStyle: 'solid',
-              borderBottomColor: activeTab === tab.id ? 'var(--amber)' : 'transparent',
-              fontFamily: "'JetBrains Mono', monospace",
+              border: `1px solid ${activeTab === tab.id ? 'var(--brand-border)' : 'transparent'}`,
+              background: activeTab === tab.id ? 'var(--brand-soft)' : 'transparent',
+              borderRadius: '10px 10px 0 0',
+              fontWeight: activeTab === tab.id ? 600 : 500,
               transition: 'all 0.15s',
             }}
           >

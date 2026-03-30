@@ -61,10 +61,10 @@ export function CameraToolbar() {
       style={{
         background: 'var(--bg-panel)',
         borderBottom: '1px solid var(--border)',
-        height: '36px',
+        minHeight: '44px',
         display: 'flex',
         alignItems: 'center',
-        padding: '0 10px',
+        padding: '6px 10px',
         gap: '10px',
         flexShrink: 0,
       }}
@@ -73,14 +73,13 @@ export function CameraToolbar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, minWidth: 0, overflow: 'hidden' }}>
         <span
           style={{
-            fontSize: '9px',
+            fontSize: '11px',
             color: 'var(--text-secondary)',
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
             flexShrink: 0,
+            fontWeight: 600,
           }}
         >
-          FEEDS
+          Feeds
         </span>
         <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', flex: 1 }}>
           {activeFeeds.map((id) => {
@@ -96,12 +95,12 @@ export function CameraToolbar() {
                   alignItems: 'center',
                   gap: '4px',
                   background: 'var(--bg-card)',
-                  border: `1px solid ${isSelected ? 'var(--cyan)' : 'var(--border)'}`,
-                  borderLeft: `2px solid ${cam.dir === 'front' ? 'var(--amber)' : 'var(--cyan)'}`,
-                  padding: '2px 7px 2px 8px',
-                  borderRadius: '2px',
-                  fontSize: '9px',
-                  color: isSelected ? 'var(--cyan)' : 'var(--text-secondary)',
+                  border: `1px solid ${isSelected ? 'var(--brand-border)' : 'var(--border)'}`,
+                  borderLeft: `3px solid ${cam.dir === 'front' ? 'var(--brand)' : 'var(--cyan)'}`,
+                  padding: '4px 8px',
+                  borderRadius: '8px',
+                  fontSize: '11px',
+                  color: isSelected ? 'var(--brand)' : 'var(--text-secondary)',
                   whiteSpace: 'nowrap',
                   flexShrink: 0,
                   cursor: 'pointer',
@@ -141,12 +140,12 @@ export function CameraToolbar() {
             background: 'var(--bg-card)',
             border: '1px solid var(--border)',
             color: 'var(--text-secondary)',
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '9px',
-            padding: '3px 6px',
+            fontSize: '11px',
+            padding: '6px 8px',
             outline: 'none',
             cursor: 'pointer',
             maxWidth: '160px',
+            borderRadius: '8px',
           }}
         >
           {available.length === 0 ? (
@@ -163,20 +162,19 @@ export function CameraToolbar() {
           onClick={handleAdd}
           disabled={available.length === 0}
           style={{
-            background: 'var(--amber-glow)',
-            border: '1px solid var(--amber-dim)',
-            color: 'var(--amber)',
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '9px',
+            background: 'var(--brand-soft)',
+            border: '1px solid var(--brand-border)',
+            color: 'var(--brand)',
+            fontSize: '11px',
             fontWeight: 600,
-            padding: '3px 9px',
+            padding: '6px 10px',
             cursor: available.length === 0 ? 'not-allowed' : 'pointer',
-            letterSpacing: '0.05em',
             transition: 'all 0.12s',
             opacity: available.length === 0 ? 0.5 : 1,
+            borderRadius: '8px',
           }}
         >
-          + ADD
+          + Add
         </button>
         <button
           onClick={cycleLayout}
@@ -185,15 +183,15 @@ export function CameraToolbar() {
             background: 'var(--bg-card)',
             border: '1px solid var(--border)',
             color: 'var(--text-secondary)',
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '9px',
-            padding: '3px 8px',
+            fontSize: '11px',
+            padding: '6px 10px',
             cursor: 'pointer',
             transition: 'all 0.12s',
             whiteSpace: 'nowrap',
+            borderRadius: '8px',
           }}
         >
-          ⊞ {LAYOUT_LABELS[layoutMode]}
+          Layout: {LAYOUT_LABELS[layoutMode]}
         </button>
       </div>
     </div>

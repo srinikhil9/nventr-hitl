@@ -3,7 +3,7 @@ export function OperatorList() {
     <div style={{ borderTop: '1px solid var(--border)' }}>
       <div
         style={{
-          padding: '10px 14px 8px',
+          padding: '12px 14px',
           borderBottom: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'center',
@@ -12,11 +12,8 @@ export function OperatorList() {
       >
         <div
           style={{
-            fontFamily: "'Syne', sans-serif",
-            fontSize: '10px',
-            fontWeight: 700,
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
+            fontSize: '13px',
+            fontWeight: 600,
             color: 'var(--text-secondary)',
           }}
         >
@@ -26,10 +23,10 @@ export function OperatorList() {
           style={{
             background: 'var(--bg-card)',
             border: '1px solid var(--border)',
-            fontSize: '9px',
-            padding: '1px 6px',
+            fontSize: '11px',
+            padding: '2px 8px',
             color: 'var(--text-secondary)',
-            borderRadius: '10px',
+            borderRadius: '999px',
           }}
         >
           2 active
@@ -56,7 +53,7 @@ function OperatorItem({
   return (
     <div
       style={{
-        padding: '8px 14px',
+        padding: '10px 14px',
         borderBottom: '1px solid var(--border)',
         display: 'flex',
         alignItems: 'center',
@@ -74,7 +71,7 @@ function OperatorItem({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: '9px',
+          fontSize: '10px',
           fontWeight: 700,
           color: 'white',
           flexShrink: 0,
@@ -83,10 +80,10 @@ function OperatorItem({
         {initials}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: '10px', fontWeight: 500, color: 'var(--text-primary)' }}>{name}</div>
+        <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-primary)' }}>{name}</div>
         <div
           style={{
-            fontSize: '9px',
+            fontSize: '10px',
             color: 'var(--text-secondary)',
             whiteSpace: 'nowrap',
             overflow: 'hidden',

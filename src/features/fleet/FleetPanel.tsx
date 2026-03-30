@@ -17,7 +17,7 @@ export function FleetPanel() {
     >
       <div
         style={{
-          padding: '10px 14px 8px',
+          padding: '12px 14px',
           borderBottom: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'center',
@@ -26,11 +26,8 @@ export function FleetPanel() {
       >
         <div
           style={{
-            fontFamily: "'Syne', sans-serif",
-            fontSize: '10px',
-            fontWeight: 700,
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
+            fontSize: '13px',
+            fontWeight: 600,
             color: 'var(--text-secondary)',
           }}
         >
@@ -40,10 +37,10 @@ export function FleetPanel() {
           style={{
             background: 'var(--bg-card)',
             border: '1px solid var(--border)',
-            fontSize: '9px',
-            padding: '1px 6px',
+            fontSize: '11px',
+            padding: '2px 8px',
             color: 'var(--text-secondary)',
-            borderRadius: '10px',
+            borderRadius: '999px',
           }}
         >
           {robots.length} robots
@@ -54,7 +51,7 @@ export function FleetPanel() {
         style={{
           flex: 1,
           overflowY: 'auto',
-          padding: '6px',
+          padding: '10px',
         }}
       >
         {robots.map((robot) => (

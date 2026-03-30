@@ -40,8 +40,9 @@ export function CameraGrid() {
       style={{
         flex: 1,
         display: 'grid',
-        gap: '1px',
-        background: 'var(--border)',
+        gap: '6px',
+        padding: '6px',
+        background: 'var(--bg-muted)',
         overflow: 'hidden',
         transition: 'grid-template-columns 0.2s ease, grid-template-rows 0.2s ease',
         ...GRID_STYLES[layoutMode],
