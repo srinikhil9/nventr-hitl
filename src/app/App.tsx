@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { queryClient } from './queryClient';
 import { useWebSocketInit } from '@/hooks/useWebSocket';
 import { useStore } from './store';
@@ -14,10 +15,36 @@ import { SidebarNav, type WorkspaceView } from '@/components/layout/SidebarNav';
 import { ToastContainer } from '@/components/ui/ToastContainer';
 import { EStopModal } from '@/features/estop/EStopModal';
 
+const VIEW_TO_PATH: Record<WorkspaceView, string> = {
+  overview: '/',
+  fleet: '/fleet',
+  telemetry: '/telemetry',
+  risk: '/risk',
+};
+
+function pathToView(pathname: string): WorkspaceView {
+  if (pathname === '/fleet') return 'fleet';
+  if (pathname === '/telemetry') return 'telemetry';
+  if (pathname === '/risk') return 'risk';
+  return 'overview';
+}
+
 function AppInner() {
   useWebSocketInit();
-  const [workspaceView, setWorkspaceView] = useState<WorkspaceView>('overview');
+  const location = useLocation();
+  const navigate = useNavigate();
   const setActiveTab = useStore((s) => s.setActiveTab);
+  const workspaceView = pathToView(location.pathname);
+
+  const setWorkspaceView = (view: WorkspaceView) => {
+    navigate(VIEW_TO_PATH[view]);
+  };
+
+  useEffect(() => {
+    if (!Object.values(VIEW_TO_PATH).includes(location.pathname)) {
+      navigate('/', { replace: true });
+    }
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     if (workspaceView === 'telemetry') {
