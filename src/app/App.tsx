@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './queryClient';
 import { useWebSocketInit } from '@/hooks/useWebSocket';
+import { useStore } from './store';
 import { TopBar } from '@/components/layout/TopBar';
 import { StatusBar } from '@/components/layout/StatusBar';
 import { FleetPanel } from '@/features/fleet/FleetPanel';
@@ -8,12 +10,29 @@ import { CameraToolbar } from '@/features/cameras/CameraToolbar';
 import { CameraGrid } from '@/features/cameras/CameraGrid';
 import { ControlStrip } from '@/features/controls/ControlStrip';
 import { RightPanel } from '@/components/layout/RightPanel';
-import { SidebarNav } from '@/components/layout/SidebarNav';
+import { SidebarNav, type WorkspaceView } from '@/components/layout/SidebarNav';
 import { ToastContainer } from '@/components/ui/ToastContainer';
 import { EStopModal } from '@/features/estop/EStopModal';
 
 function AppInner() {
   useWebSocketInit();
+  const [workspaceView, setWorkspaceView] = useState<WorkspaceView>('overview');
+  const setActiveTab = useStore((s) => s.setActiveTab);
+
+  useEffect(() => {
+    if (workspaceView === 'telemetry') {
+      setActiveTab('telemetry');
+    } else if (workspaceView === 'risk') {
+      setActiveTab('risk');
+    } else if (workspaceView === 'fleet') {
+      setActiveTab('audit');
+    }
+  }, [workspaceView, setActiveTab]);
+
+  const showRightPanel = workspaceView !== 'fleet';
+  const contentColumns = showRightPanel
+    ? '240px minmax(0, 1fr) 320px'
+    : '340px minmax(0, 1fr)';
 
   return (
     <>
@@ -32,7 +51,7 @@ function AppInner() {
             background: 'var(--bg-panel)',
           }}
         >
-          <SidebarNav />
+          <SidebarNav activeView={workspaceView} onSelectView={setWorkspaceView} />
         </div>
         <div
           style={{
@@ -57,7 +76,7 @@ function AppInner() {
               style={{
                 height: '100%',
                 display: 'grid',
-                gridTemplateColumns: '240px minmax(0, 1fr) 320px',
+                gridTemplateColumns: contentColumns,
                 border: '1px solid var(--border)',
                 borderRadius: '14px',
                 background: 'var(--bg-base)',
@@ -77,7 +96,7 @@ function AppInner() {
                 <CameraGrid />
                 <ControlStrip />
               </div>
-              <RightPanel />
+              {showRightPanel && <RightPanel />}
             </div>
           </div>
         </div>

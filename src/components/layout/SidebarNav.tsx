@@ -1,14 +1,22 @@
 import { useStore } from '@/app/store';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
-const NAV_ITEMS = [
+export type WorkspaceView = 'overview' | 'fleet' | 'telemetry' | 'risk';
+
+const NAV_ITEMS: Array<{ id: WorkspaceView; label: string }> = [
   { id: 'overview', label: 'Overview' },
   { id: 'fleet', label: 'Fleet Ops' },
   { id: 'telemetry', label: 'Telemetry' },
   { id: 'risk', label: 'Risk & Safety' },
 ];
 
-export function SidebarNav() {
+export function SidebarNav({
+  activeView,
+  onSelectView,
+}: {
+  activeView: WorkspaceView;
+  onSelectView: (view: WorkspaceView) => void;
+}) {
   const session = useStore((s) => s.session);
   const selectedRobotId = useStore((s) => s.selectedRobotId);
   const wsState = useStore((s) => s.wsState);
@@ -36,16 +44,18 @@ export function SidebarNav() {
           <button
             key={item.id}
             type="button"
+            onClick={() => onSelectView(item.id)}
             style={{
               border: '1px solid var(--border)',
-              background: item.id === 'overview' ? 'var(--brand-soft)' : 'var(--bg-base)',
-              color: item.id === 'overview' ? 'var(--brand)' : 'var(--text-primary)',
+              background: item.id === activeView ? 'var(--brand-soft)' : 'var(--bg-base)',
+              color: item.id === activeView ? 'var(--brand)' : 'var(--text-primary)',
               borderRadius: '10px',
               padding: '10px 11px',
               textAlign: 'left',
               fontSize: '13px',
-              fontWeight: 500,
-              cursor: 'default',
+              fontWeight: item.id === activeView ? 600 : 500,
+              cursor: 'pointer',
+              transition: 'all 0.12s',
             }}
           >
             {item.label}
