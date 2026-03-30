@@ -8,6 +8,7 @@ import { CameraToolbar } from '@/features/cameras/CameraToolbar';
 import { CameraGrid } from '@/features/cameras/CameraGrid';
 import { ControlStrip } from '@/features/controls/ControlStrip';
 import { RightPanel } from '@/components/layout/RightPanel';
+import { SidebarNav } from '@/components/layout/SidebarNav';
 import { ToastContainer } from '@/components/ui/ToastContainer';
 import { EStopModal } from '@/features/estop/EStopModal';
 
@@ -16,31 +17,70 @@ function AppInner() {
 
   return (
     <>
-      <TopBar />
-      <StatusBar />
       <div
         style={{
           flex: 1,
-          display: 'grid',
-          gridTemplateColumns: '220px 1fr 280px',
-          gridTemplateRows: '1fr',
+          display: 'flex',
           overflow: 'hidden',
         }}
       >
-        <FleetPanel />
         <div
           style={{
+            width: '240px',
+            flexShrink: 0,
+            borderRight: '1px solid var(--border)',
+            background: 'var(--bg-panel)',
+          }}
+        >
+          <SidebarNav />
+        </div>
+        <div
+          style={{
+            flex: 1,
+            minWidth: 0,
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
-            background: 'var(--bg-void)',
+            background: 'var(--bg-muted)',
           }}
         >
-          <CameraToolbar />
-          <CameraGrid />
-          <ControlStrip />
+          <TopBar />
+          <StatusBar />
+          <div
+            style={{
+              flex: 1,
+              minHeight: 0,
+              padding: '16px',
+            }}
+          >
+            <div
+              style={{
+                height: '100%',
+                display: 'grid',
+                gridTemplateColumns: '240px minmax(0, 1fr) 320px',
+                border: '1px solid var(--border)',
+                borderRadius: '14px',
+                background: 'var(--bg-base)',
+                overflow: 'hidden',
+              }}
+            >
+              <FleetPanel />
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflow: 'hidden',
+                  background: 'var(--bg-base)',
+                }}
+              >
+                <CameraToolbar />
+                <CameraGrid />
+                <ControlStrip />
+              </div>
+              <RightPanel />
+            </div>
+          </div>
         </div>
-        <RightPanel />
       </div>
       <ToastContainer />
       <EStopModal />
