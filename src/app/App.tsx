@@ -56,10 +56,30 @@ function AppInner() {
     }
   }, [workspaceView, setActiveTab]);
 
-  const showRightPanel = workspaceView !== 'fleet';
-  const contentColumns = showRightPanel
+  const isOverview = workspaceView === 'overview';
+  const isFleet = workspaceView === 'fleet';
+  const isTelemetryOrRisk = workspaceView === 'telemetry' || workspaceView === 'risk';
+
+  const contentColumns = isOverview
     ? '240px minmax(0, 1fr) 320px'
-    : '340px minmax(0, 1fr)';
+    : isFleet
+      ? '360px minmax(0, 1fr)'
+      : 'minmax(0, 1fr) 360px';
+
+  const cameraWorkspace = (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+        background: 'var(--bg-base)',
+      }}
+    >
+      <CameraToolbar />
+      <CameraGrid />
+      <ControlStrip />
+    </div>
+  );
 
   return (
     <>
@@ -110,20 +130,27 @@ function AppInner() {
                 overflow: 'hidden',
               }}
             >
-              <FleetPanel />
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  overflow: 'hidden',
-                  background: 'var(--bg-base)',
-                }}
-              >
-                <CameraToolbar />
-                <CameraGrid />
-                <ControlStrip />
-              </div>
-              {showRightPanel && <RightPanel />}
+              {isOverview && (
+                <>
+                  <FleetPanel />
+                  {cameraWorkspace}
+                  <RightPanel />
+                </>
+              )}
+
+              {isFleet && (
+                <>
+                  <FleetPanel />
+                  <RightPanel />
+                </>
+              )}
+
+              {isTelemetryOrRisk && (
+                <>
+                  {cameraWorkspace}
+                  <RightPanel />
+                </>
+              )}
             </div>
           </div>
         </div>
