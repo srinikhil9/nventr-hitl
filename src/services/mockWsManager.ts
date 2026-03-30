@@ -7,8 +7,8 @@ import type { FidelityRequest } from '@/types/fidelity';
 import { v4 as uuid } from 'uuid';
 
 const INITIAL_ROBOTS: Robot[] = [
-  { id: 'R-001', type: 'AMR Jack', zone: 'Z1', status: 'active', assignedOperatorId: 'ID-1001', battery: 74, risk: 0.38, warehouseId: 'WH-CARSON' },
-  { id: 'R-002', type: 'AMR Jack', zone: 'Z2', status: 'active', assignedOperatorId: 'ID-1002', battery: 88, risk: 0.14, warehouseId: 'WH-CARSON' },
+  { id: 'R-001', type: 'AMR Jack', zone: 'Z1', status: 'active', assignedOperatorId: 'ID-2101', battery: 74, risk: 0.38, warehouseId: 'WH-CARSON' },
+  { id: 'R-002', type: 'AMR Jack', zone: 'Z2', status: 'active', assignedOperatorId: 'ID-2102', battery: 88, risk: 0.14, warehouseId: 'WH-CARSON' },
   { id: 'R-003', type: 'Forklift AMR', zone: 'Z3', status: 'stopped', assignedOperatorId: null, battery: 31, risk: 0.0, warehouseId: 'WH-CARSON' },
   { id: 'R-004', type: 'Arm AGV', zone: 'Z1', status: 'idle', assignedOperatorId: null, battery: 95, risk: 0.06, warehouseId: 'WH-CARSON' },
 ];
@@ -17,7 +17,7 @@ const INITIAL_FIDELITY: FidelityRequest[] = [
   {
     requestId: 'REQ-0091',
     robotId: 'R-001',
-    requesterId: 'ID-1001',
+    requesterId: 'ID-2101',
     requesterRole: 'Teleop',
     level: 'MAX',
     reason: 'anomaly review',
@@ -27,7 +27,7 @@ const INITIAL_FIDELITY: FidelityRequest[] = [
   {
     requestId: 'REQ-0088',
     robotId: 'R-002',
-    requesterId: 'ID-1002',
+    requesterId: 'ID-2102',
     requesterRole: 'Teleop',
     level: 'MEDIUM',
     reason: 'routine inspection',
@@ -38,11 +38,11 @@ const INITIAL_FIDELITY: FidelityRequest[] = [
 ];
 
 const INITIAL_AUDIT: AuditEntry[] = [
-  { id: uuid(), type: 'command', ts: '2026-03-26T14:22:07Z', robotId: 'R-001', operatorId: 'ID-1001', body: 'forward · R-001 · op:AK · risk:0.42 · FLAGGED' },
+  { id: uuid(), type: 'command', ts: '2026-03-26T14:22:07Z', robotId: 'R-001', operatorId: 'ID-2101', body: 'forward · R-001 · op:MC · risk:0.42 · FLAGGED' },
   { id: uuid(), type: 'repair', ts: '2026-03-26T14:18:33Z', robotId: 'R-003', body: 'R-003 marked inactive — encoder fault. Repair ticket auto-created.' },
-  { id: uuid(), type: 'estop', ts: '2026-03-26T13:55:01Z', robotId: 'R-002', operatorId: 'ID-1002', body: 'Robot R-002 emergency stopped by op:BR. Resumed 13:55:48.' },
+  { id: uuid(), type: 'estop', ts: '2026-03-26T13:55:01Z', robotId: 'R-002', operatorId: 'ID-2102', body: 'Robot R-002 emergency stopped by op:DP. Resumed 13:55:48.' },
   { id: uuid(), type: 'camera', ts: '2026-03-26T13:42:15Z', body: 'C-004 feed loss — duration 23s. Auto-escalated to supervisor.' },
-  { id: uuid(), type: 'session', ts: '2026-03-26T13:40:00Z', operatorId: 'ID-1001', body: 'Session TOS-4471 opened · op:AK · R-001 · WH-CARSON' },
+  { id: uuid(), type: 'session', ts: '2026-03-26T13:40:00Z', operatorId: 'ID-2101', body: 'Session TOS-4471 opened · op:MC · R-001 · WH-CARSON' },
 ];
 
 let telemetryInterval: ReturnType<typeof setInterval> | null = null;
@@ -59,8 +59,8 @@ export function startMockStreams() {
 
   store.setSession({
     sessionId: 'TOS-4471',
-    operatorId: 'ID-1001',
-    operatorName: 'Alice Kumar',
+    operatorId: 'ID-2101',
+    operatorName: 'Maya Chen',
     operatorRole: 'teleop',
     warehouseId: 'WH-CARSON',
     activeRobotId: 'R-001',
@@ -124,7 +124,7 @@ export function startMockStreams() {
   const auditTypes: AuditEntryType[] = ['command', 'hitl', 'camera', 'fidelity'];
   const auditBodies = [
     'Teleop command: forward · R-001 · op:AK · risk:0.22 · safe',
-    'HITL override: speed reduced to 0.2 m/s by supervisor',
+    'Teleops override: speed reduced to 0.2 m/s by supervisor',
     'Camera R001-F: brief quality degradation (2.1s)',
     'Fidelity check: R-002 stream verified at MEDIUM level',
   ];
@@ -136,7 +136,7 @@ export function startMockStreams() {
       type: auditTypes[typeIdx],
       ts: new Date().toISOString(),
       robotId: 'R-001',
-      operatorId: 'ID-1001',
+      operatorId: 'ID-2101',
       body: auditBodies[typeIdx],
     };
     useStore.getState().appendAudit(entry);

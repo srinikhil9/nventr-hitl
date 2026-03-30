@@ -56,7 +56,7 @@ export function TopBar() {
             {session?.operatorName ? getInitials(session.operatorName) : 'OP'}
           </div>
           <div>
-            <div style={{ fontSize: '10px', color: 'var(--text-primary)' }}>{session?.operatorName ?? 'Operator'}</div>
+            <div style={{ fontSize: '10px', color: 'var(--text-primary)' }}>{session?.operatorName ?? 'Teleops Operator'}</div>
             <div style={{ fontSize: '9px', color: 'var(--text-secondary)' }}>{session?.operatorId ?? '—'}</div>
           </div>
           <div
@@ -71,7 +71,7 @@ export function TopBar() {
               textTransform: 'uppercase',
             }}
           >
-            HITL Op
+            Teleops
           </div>
         </div>
 

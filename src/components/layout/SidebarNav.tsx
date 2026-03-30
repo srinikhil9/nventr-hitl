@@ -36,7 +36,7 @@ export function SidebarNav({
         }}
       >
         <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--brand)' }}>Nventr</div>
-        <div style={{ marginTop: '2px', fontSize: '12px', color: 'var(--text-secondary)' }}>HITL Console</div>
+        <div style={{ marginTop: '2px', fontSize: '12px', color: 'var(--text-secondary)' }}>Teleops Console</div>
       </div>
 
       <div style={{ padding: '12px', display: 'grid', gap: '6px' }}>

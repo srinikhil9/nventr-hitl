@@ -33,8 +33,8 @@ export function OperatorList() {
         </div>
       </div>
 
-      <OperatorItem initials="AK" name="Alice Kumar" detail="R-001 · Zone-1 · 42min" gradient="linear-gradient(135deg, #1e40af, var(--cyan-dim))" />
-      <OperatorItem initials="BR" name="Bob Reyes" detail="R-002 · Zone-2 · 18min" gradient="linear-gradient(135deg, #064e3b, #10b981)" />
+      <OperatorItem initials="MC" name="Maya Chen" detail="R-001 · Zone-1 · 42min" gradient="linear-gradient(135deg, #1e40af, var(--cyan-dim))" />
+      <OperatorItem initials="DP" name="Diego Park" detail="R-002 · Zone-2 · 18min" gradient="linear-gradient(135deg, #064e3b, #10b981)" />
     </div>
   );
 }
