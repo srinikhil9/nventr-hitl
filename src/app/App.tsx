@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { queryClient } from './queryClient';
 import { useWebSocketInit } from '@/hooks/useWebSocket';
+import { useStore } from './store';
 import { TopBar } from '@/components/layout/TopBar';
 import { StatusBar } from '@/components/layout/StatusBar';
 import { FleetPanel } from '@/features/fleet/FleetPanel';
@@ -8,39 +11,149 @@ import { CameraToolbar } from '@/features/cameras/CameraToolbar';
 import { CameraGrid } from '@/features/cameras/CameraGrid';
 import { ControlStrip } from '@/features/controls/ControlStrip';
 import { RightPanel } from '@/components/layout/RightPanel';
+import { SidebarNav, type WorkspaceView } from '@/components/layout/SidebarNav';
 import { ToastContainer } from '@/components/ui/ToastContainer';
 import { EStopModal } from '@/features/estop/EStopModal';
 
+const VIEW_TO_PATH: Record<WorkspaceView, string> = {
+  overview: '/',
+  fleet: '/fleet',
+  telemetry: '/telemetry',
+  risk: '/risk',
+};
+
+function pathToView(pathname: string): WorkspaceView {
+  if (pathname === '/fleet') return 'fleet';
+  if (pathname === '/telemetry') return 'telemetry';
+  if (pathname === '/risk') return 'risk';
+  return 'overview';
+}
+
 function AppInner() {
   useWebSocketInit();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const setActiveTab = useStore((s) => s.setActiveTab);
+  const workspaceView = pathToView(location.pathname);
+
+  const setWorkspaceView = (view: WorkspaceView) => {
+    navigate(VIEW_TO_PATH[view]);
+  };
+
+  useEffect(() => {
+    if (!Object.values(VIEW_TO_PATH).includes(location.pathname)) {
+      navigate('/', { replace: true });
+    }
+  }, [location.pathname, navigate]);
+
+  useEffect(() => {
+    if (workspaceView === 'telemetry') {
+      setActiveTab('telemetry');
+    } else if (workspaceView === 'risk') {
+      setActiveTab('risk');
+    } else if (workspaceView === 'fleet') {
+      setActiveTab('audit');
+    }
+  }, [workspaceView, setActiveTab]);
+
+  const isOverview = workspaceView === 'overview';
+  const isFleet = workspaceView === 'fleet';
+  const isTelemetryOrRisk = workspaceView === 'telemetry' || workspaceView === 'risk';
+
+  const contentColumns = isOverview
+    ? '240px minmax(0, 1fr) 320px'
+    : isFleet
+      ? '360px minmax(0, 1fr)'
+      : 'minmax(0, 1fr) 360px';
+
+  const cameraWorkspace = (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+        background: 'var(--bg-base)',
+      }}
+    >
+      <CameraToolbar />
+      <CameraGrid />
+      <ControlStrip />
+    </div>
+  );
 
   return (
     <>
-      <TopBar />
-      <StatusBar />
       <div
         style={{
           flex: 1,
-          display: 'grid',
-          gridTemplateColumns: '220px 1fr 280px',
-          gridTemplateRows: '1fr',
+          display: 'flex',
           overflow: 'hidden',
         }}
       >
-        <FleetPanel />
         <div
           style={{
+            width: '240px',
+            flexShrink: 0,
+            borderRight: '1px solid var(--border)',
+            background: 'var(--bg-panel)',
+          }}
+        >
+          <SidebarNav activeView={workspaceView} onSelectView={setWorkspaceView} />
+        </div>
+        <div
+          style={{
+            flex: 1,
+            minWidth: 0,
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
-            background: 'var(--bg-void)',
+            background: 'var(--bg-muted)',
           }}
         >
-          <CameraToolbar />
-          <CameraGrid />
-          <ControlStrip />
+          <TopBar />
+          <StatusBar />
+          <div
+            style={{
+              flex: 1,
+              minHeight: 0,
+              padding: '16px',
+            }}
+          >
+            <div
+              style={{
+                height: '100%',
+                display: 'grid',
+                gridTemplateColumns: contentColumns,
+                border: '1px solid var(--border)',
+                borderRadius: '14px',
+                background: 'var(--bg-base)',
+                overflow: 'hidden',
+              }}
+            >
+              {isOverview && (
+                <>
+                  <FleetPanel />
+                  {cameraWorkspace}
+                  <RightPanel />
+                </>
+              )}
+
+              {isFleet && (
+                <>
+                  <FleetPanel />
+                  <RightPanel />
+                </>
+              )}
+
+              {isTelemetryOrRisk && (
+                <>
+                  {cameraWorkspace}
+                  <RightPanel />
+                </>
+              )}
+            </div>
+          </div>
         </div>
-        <RightPanel />
       </div>
       <ToastContainer />
       <EStopModal />

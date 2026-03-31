@@ -22,7 +22,7 @@ export function StatusBar() {
       style={{
         background: 'var(--bg-base)',
         borderBottom: '1px solid var(--border)',
-        height: '30px',
+        height: '34px',
         display: 'flex',
         alignItems: 'center',
         padding: '0 16px',
@@ -30,7 +30,7 @@ export function StatusBar() {
         flexShrink: 0,
       }}
     >
-      <StatItem dot={wsConnected ? 'green' : 'red'} label="MQTT" value={wsConnected ? 'LIVE' : 'DOWN'} />
+      <StatItem dot={wsConnected ? 'green' : 'red'} label="WS" value={wsConnected ? 'LIVE' : 'DOWN'} />
       <Sep />
       <StatItem dot={wsConnected ? 'green' : 'red'} label="VIDEO" value="WebRTC" />
       <Sep />

@@ -11,22 +11,20 @@ export function EStopButton() {
     <button
       onClick={handleClick}
       style={{
-        background: estopActive ? '#7f1d1d' : 'var(--red)',
-        border: 'none',
+        background: estopActive ? '#991b1b' : 'var(--red)',
+        border: '1px solid var(--red)',
         color: 'white',
-        fontFamily: "'Syne', sans-serif",
-        fontWeight: 700,
-        fontSize: '11px',
-        letterSpacing: '0.1em',
-        padding: '6px 14px',
+        fontWeight: 600,
+        fontSize: '12px',
+        letterSpacing: '0.04em',
+        padding: '8px 14px',
         cursor: 'pointer',
-        textTransform: 'uppercase',
         transition: 'all 0.1s',
-        clipPath: 'polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%)',
+        borderRadius: '10px',
         animation: estopActive ? 'pulse-red 0.8s ease-in-out infinite' : 'none',
       }}
     >
-      ⬛ {estopActive ? 'STOPPED' : 'E-STOP'}
+      {estopActive ? 'Stopped' : 'E-Stop'}
     </button>
   );
 }

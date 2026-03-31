@@ -12,9 +12,9 @@ export function ThemeToggle() {
         background: 'var(--bg-card)',
         border: '1px solid var(--border)',
         color: 'var(--text-secondary)',
-        width: '30px',
-        height: '30px',
-        borderRadius: '50%',
+        width: '32px',
+        height: '32px',
+        borderRadius: '8px',
         cursor: 'pointer',
         fontSize: '14px',
         display: 'flex',
@@ -24,7 +24,7 @@ export function ThemeToggle() {
         flexShrink: 0,
       }}
     >
-      {theme === 'dark' ? '🌙' : '🌑'}
+      {theme === 'dark' ? '☾' : '☀'}
     </button>
   );
 }
